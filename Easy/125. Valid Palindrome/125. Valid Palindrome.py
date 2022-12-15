@@ -1,30 +1,21 @@
-# coding: utf-8
-"""
-Author: Jet C.
-GitHub: https://github.com/jet-c-21
-Create Date: 2022/12/15
-"""
-import string
-
-
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        clean_str = ''
-        valid_char = list(string.ascii_letters) + list(string.digits)
-        for char in s:
-            if char in valid_char:
-                clean_str += char
+        l_idx, r_idx = 0, len(s) - 1
+        while l_idx < r_idx:
+            while l_idx < r_idx and not self.is_alpha_num(s[l_idx]):
+                l_idx += 1
 
-        clean_str = clean_str.lower()
+            while r_idx > l_idx and not self.is_alpha_num(s[r_idx]):
+                r_idx -= 1
 
-        for i in range(len(clean_str)):
-            forward_char = clean_str[i]
-            backward_char = clean_str[len(clean_str) - 1 - i]
-            if forward_char != backward_char:
+            if s[l_idx].lower() != s[r_idx].lower():
                 return False
+
+            l_idx += 1
+            r_idx -= 1
 
         return True
 
-if __name__ == '__main__':
-    a = "0P"
-    Solution().isPalindrome(a)
+    def is_alpha_num(self, c):
+        res = ord('a') <= ord(c) <= ord('z') or ord('A') <= ord(c) <= ord('Z') or ord('0') <= ord(c) <= ord('9')
+        return res
