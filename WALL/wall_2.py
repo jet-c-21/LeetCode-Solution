@@ -1,1 +1,1 @@
-print(range(3))
+print(float('-inf') < 0 < float('inf'))
